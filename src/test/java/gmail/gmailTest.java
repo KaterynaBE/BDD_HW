@@ -2,6 +2,7 @@ package gmail;
 
 import cucumber.api.CucumberOptions;
 // import cucumber.api.java.Before;
+import cucumber.api.java.Before;
 import cucumber.api.junit.Cucumber;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
@@ -19,8 +20,8 @@ import org.junit.runner.RunWith;
                 "html:target/cucumber-html-report"
         }
 )
-public class gmailTest {
-    @BeforeClass
+public class GmailTest {
+    @Before
 //    @Before ? gives an error on runner
     public static void initSelenium(){
         BaseTest.init();

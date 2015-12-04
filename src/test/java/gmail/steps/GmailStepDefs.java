@@ -27,7 +27,6 @@ public class GmailStepDefs extends BaseTest {
     public EmailManager emailMng;
     public SignManager signMng;
     public SentMailManager sentMailMng;
-//    private SignInPage signinPage;
 
     @Given("^I (?:open|navigate to) main page$")
     public void iOpenMainPage() throws Throwable {
@@ -38,9 +37,6 @@ public class GmailStepDefs extends BaseTest {
     public void iLogInAsUser(String user1, String pwd1) throws Throwable {
         signMng = new SignManager(driver);
         signMng.signInGmail(USERNAME1, PASSWORD1);
-//        signinPage = new SignInPage(driver);
-//        signinPage.signIn("testtasktask", "testtasktaskpwd");
-// ? - can't find 2nd element (password field by id). Same w/o using page, just element-by-element steps
     }
 
     @Given("^I sent email to \"([^\"]*)\" with \"([^\"]*)\" and \"([^\"]*)\"$")

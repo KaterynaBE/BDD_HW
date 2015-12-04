@@ -1,7 +1,6 @@
 package com.epam.auto.ui.services;
 
 import com.epam.auto.ui.pages.BasePage;
-import com.epam.auto.ui.pages.InboxPage;
 import com.epam.auto.ui.pages.SentMailPage;
 import org.openqa.selenium.WebDriver;
 
@@ -10,7 +9,6 @@ import org.openqa.selenium.WebDriver;
  */
 public class SentMailManager extends BaseManager {
 
-    private InboxPage inboxPage;
     private BasePage basePage;
     private SentMailPage sentMailPage;
     public SentMailManager(WebDriver driver) {

@@ -39,7 +39,6 @@ public class SignInPage {
         inputEmail.sendKeys(email);
 
         buttonNext.click();
-
         inputPassword.clear();
         inputPassword.sendKeys(password);
 
