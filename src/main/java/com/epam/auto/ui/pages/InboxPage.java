@@ -6,7 +6,7 @@ import org.openqa.selenium.support.FindBy;
 
 
 /**
- * 'Home' page elements and methods.
+ * 'Inbox' page elements and methods.
  */
 
 public class InboxPage extends BasePage {

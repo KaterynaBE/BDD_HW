@@ -22,4 +22,12 @@ public class EmailManager extends BaseManager {
         newMessagePopup.sendEmail(email);
         basePage = new BasePage(driver);
     }
+
+    public void createEmailClosePopup(Email email) {
+        NewMessagePopup newMessagePopup = new BasePage(driver).initiateNewEmail();
+        newMessagePopup.createEmailClosePopup(email);
+
+    }
+
+
 }

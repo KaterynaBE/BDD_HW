@@ -3,6 +3,7 @@ package gmail.steps;
 //import com.epam.auto.patterns.decorator.CustomWebDriver;
 import com.epam.auto.patterns.staticfactorymethod.Email;
 import com.epam.auto.patterns.staticfactorymethod.EmailStaticFactory;
+import com.epam.auto.ui.services.DraftsManager;
 import com.epam.auto.ui.services.EmailManager;
 import com.epam.auto.ui.services.SentMailManager;
 import com.epam.auto.ui.services.SignManager;
@@ -34,6 +35,7 @@ public class GmailStepDefs {
     public EmailManager emailMng;
     public SignManager signMng;
     public SentMailManager sentMailMng;
+    public DraftsManager draftsMng;
 
     @Given("^I (?:open|navigate to) main page$")
     public void iOpenMainPage() throws Throwable {
@@ -58,11 +60,35 @@ public class GmailStepDefs {
         emailMng.sendEmail(email);
     }
 
+    @Given("^I create email to sent to \"([^\"]*)\" with \"([^\"]*)\" and \"([^\"]*)\"$")
+    public void iCreateEmail(String addressee, String subject, String emailBody) throws Throwable {
+        emailMng = new EmailManager(driver);
+
+        String emailTitle = EMAIL_TITLE + StringUtils.getRandomString(6);
+        Email email = EmailStaticFactory.createDefaultEmail(USERNAME2, emailTitle, MESSAGE
+                + StringUtils.getRandomString(7));
+
+        emailMng.createEmailClosePopup(email);
+    }
+
+    @Given("^I go to Drafts folder$")
+    public void iGoToDraftFolder() throws Throwable {
+        draftsMng = new DraftsManager(driver);
+        draftsMng.navigateToDraftsFolder();
+    }
+
+
     @When("^I go to Sent Mail folder$")
     public void iGoToSentMailFolder() throws Throwable {
         sentMailMng = new SentMailManager(driver);
         sentMailMng.navigateToSendFolder();
     }
+
+//    @When("^I sent email from Draft folder$")
+//    public void I_sent_email() throws Throwable {
+//        // Express the Regexp above with the code you wish you had
+//        throw new PendingException();
+//    }
 
     @Then("^email sent is on Send folder$")
     public void emailSentIsOnSentMailFolder() throws Throwable {
@@ -72,4 +98,10 @@ public class GmailStepDefs {
 // have difficulties wih list text element identification, looking at the page source instead
                 driver.getPageSource().contains(EMAIL_TITLE));
     }
+
+//    @Then("^Draft folder is empty$")
+//    public void Draft_folder_is_empty() throws Throwable {
+//        // Express the Regexp above with the code you wish you had
+//        throw new PendingException();
+//    }
 }

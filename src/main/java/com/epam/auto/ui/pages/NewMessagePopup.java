@@ -26,6 +26,9 @@ public class NewMessagePopup {
     @FindBy(xpath="//div[text()='Send']")
     private WebElement buttonSend;
 
+    @FindBy(xpath="//img[@aria-label='Save & Close']")
+    private WebElement buttonClose;
+
     private WebDriver driver;
 
     public NewMessagePopup(WebDriver driver) {
@@ -40,6 +43,16 @@ public class NewMessagePopup {
         textareaMessageBody.click();
         textareaMessageBody.sendKeys(email.getEmailBody());
         buttonSend.click();
+        return new BasePage(driver);
+    }
+
+    public BasePage createEmailClosePopup(Email email) {
+        textareaTo.click();
+        textareaTo.sendKeys(email.getAddressee());
+        textareaSubjectbox.sendKeys(email.getSubject());
+        textareaMessageBody.click();
+        textareaMessageBody.sendKeys(email.getEmailBody());
+        buttonClose.click();
         return new BasePage(driver);
     }
 }
