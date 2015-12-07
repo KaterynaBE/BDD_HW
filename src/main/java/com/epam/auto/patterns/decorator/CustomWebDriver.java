@@ -89,4 +89,6 @@ public class CustomWebDriver implements WebDriver {
             driver.switchTo().alert().accept();
         }
     }
+
+    // Wait elements to load
 }

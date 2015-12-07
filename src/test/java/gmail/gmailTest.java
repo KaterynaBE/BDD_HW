@@ -1,12 +1,9 @@
 package gmail;
 
 import cucumber.api.CucumberOptions;
-// import cucumber.api.java.Before;
-import cucumber.api.java.Before;
 import cucumber.api.junit.Cucumber;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
+import gmail.BaseTest;
 
 /**
  * Created by ekaterinabut on 12/1/15.
@@ -20,15 +17,5 @@ import org.junit.runner.RunWith;
                 "html:target/cucumber-html-report"
         }
 )
-public class GmailTest {
-    @Before
-//    @Before ? gives an error on runner
-    public static void initSelenium(){
-        BaseTest.init();
-    }
-
-    @AfterClass
-    public static void closeSelenium(){
-        BaseTest.close();
-    }
+public class GmailTest extends BaseTest {
 }
