@@ -9,6 +9,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 /**
  * Created by ekaterinabut on 12/6/15.
  */
+
 public class BaseTest {
 
     protected CustomWebDriver customDriver;

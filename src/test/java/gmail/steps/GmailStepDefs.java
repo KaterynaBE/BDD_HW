@@ -8,6 +8,7 @@ import com.epam.auto.ui.services.EmailManager;
 import com.epam.auto.ui.services.SentMailManager;
 import com.epam.auto.ui.services.SignManager;
 import com.epam.auto.utils.StringUtils;
+import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -23,7 +24,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class GmailStepDefs {
 
-//    protected CustomWebDriver customDriver;
+    // protected CustomWebDriver customDriver;
     WebDriver driver = new FirefoxDriver();
 
     private final String USERNAME1 = "testtasktask";
@@ -37,6 +38,13 @@ public class GmailStepDefs {
     public SentMailManager sentMailMng;
     public DraftsManager draftsMng;
 
+    @Before
+    public void initManagers() {
+        emailMng = new EmailManager(driver);
+        signMng = new SignManager(driver);
+        draftsMng = new DraftsManager(driver);
+    }
+
     @Given("^I (?:open|navigate to) main page$")
     public void iOpenMainPage() throws Throwable {
         driver.get("http://www.gmail.com");
@@ -45,13 +53,11 @@ public class GmailStepDefs {
     @Given("^I log in as \"([^\"]*)\" with password \"([^\"]*)\"$")
     public void iLogInAsUser(String user1, String pwd1) throws Throwable {
         driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        signMng = new SignManager(driver);
         signMng.signInGmail(USERNAME1, PASSWORD1);
     }
 
     @Given("^I sent email to \"([^\"]*)\" with \"([^\"]*)\" and \"([^\"]*)\"$")
     public void iSentEmail(String addressee, String subject, String emailBody) throws Throwable {
-        emailMng = new EmailManager(driver);
 
         String emailTitle = EMAIL_TITLE + StringUtils.getRandomString(6);
         Email email = EmailStaticFactory.createDefaultEmail(USERNAME2, emailTitle, MESSAGE
@@ -62,7 +68,6 @@ public class GmailStepDefs {
 
     @Given("^I create email to sent to \"([^\"]*)\" with \"([^\"]*)\" and \"([^\"]*)\"$")
     public void iCreateEmail(String addressee, String subject, String emailBody) throws Throwable {
-        emailMng = new EmailManager(driver);
 
         String emailTitle = EMAIL_TITLE + StringUtils.getRandomString(6);
         Email email = EmailStaticFactory.createDefaultEmail(USERNAME2, emailTitle, MESSAGE
@@ -73,7 +78,6 @@ public class GmailStepDefs {
 
     @Given("^I go to Drafts folder$")
     public void iGoToDraftFolder() throws Throwable {
-        draftsMng = new DraftsManager(driver);
         draftsMng.navigateToDraftsFolder();
     }
 

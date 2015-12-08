@@ -3,10 +3,9 @@ package gmail;
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 import org.junit.runner.RunWith;
-import gmail.BaseTest;
 
 /**
- * Created by ekaterinabut on 12/1/15.
+ * Defines Cucumber configuration.
  */
 
 @RunWith(Cucumber.class)
