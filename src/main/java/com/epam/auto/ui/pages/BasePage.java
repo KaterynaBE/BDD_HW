@@ -24,13 +24,13 @@ public class BasePage {
     @FindBy(className="ait")
     private WebElement expanderMoreLess;
 
-    @FindBy(linkText = "Spam")
+    @FindBy(partialLinkText = "Spam")
     private WebElement linkSpam;
 
     @FindBy(linkText = "Sent Mail")
     private WebElement linkSentMail;
 
-    @FindBy(linkText = "Drafts")
+    @FindBy(partialLinkText = "Drafts")
     private WebElement linkDrafts;
 
     protected WebDriver driver;
