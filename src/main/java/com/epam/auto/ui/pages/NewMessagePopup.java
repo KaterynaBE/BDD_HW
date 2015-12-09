@@ -55,4 +55,10 @@ public class NewMessagePopup {
         buttonClose.click();
         return new BasePage(driver);
     }
+
+    public BasePage clickSendButton() {
+        buttonSend.click();
+        return new BasePage(driver);
+    }
+
 }

@@ -13,6 +13,7 @@ import com.epam.auto.patterns.staticfactorymethod.Email;
 public class EmailManager extends BaseManager {
 
     private BasePage basePage;
+    private NewMessagePopup newMessagePopup;
     public EmailManager(WebDriver driver) {
         super(driver);
     }
@@ -26,8 +27,10 @@ public class EmailManager extends BaseManager {
     public void createEmailClosePopup(Email email) {
         NewMessagePopup newMessagePopup = new BasePage(driver).initiateNewEmail();
         newMessagePopup.createEmailClosePopup(email);
-
     }
-
-
+//
+//    public void clickSendMail() {
+//        newMessagePopup = new NewMessagePopup(driver);
+//        newMessagePopup.clickSendButton();
+//    }
 }

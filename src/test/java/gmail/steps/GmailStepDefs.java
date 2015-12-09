@@ -32,6 +32,7 @@ public class GmailStepDefs {
     private final String USERNAME2 = "testtasktask2@gmail.com";
     private final String EMAIL_TITLE = "Email title ";
     private final String MESSAGE = "Some awesome text ";
+    private final String EMPTY_DRAFTS_MESSAGE = "You don't have any saved drafts.";
 
     public EmailManager emailMng;
     public SignManager signMng;
@@ -43,6 +44,7 @@ public class GmailStepDefs {
         emailMng = new EmailManager(driver);
         signMng = new SignManager(driver);
         draftsMng = new DraftsManager(driver);
+        sentMailMng = new SentMailManager(driver);
     }
 
     @Given("^I (?:open|navigate to) main page$")
@@ -84,28 +86,26 @@ public class GmailStepDefs {
 
     @When("^I go to Sent Mail folder$")
     public void iGoToSentMailFolder() throws Throwable {
-        sentMailMng = new SentMailManager(driver);
         sentMailMng.navigateToSendFolder();
     }
 
-//    @When("^I sent email from Draft folder$")
-//    public void I_sent_email() throws Throwable {
-//        // Express the Regexp above with the code you wish you had
-//        throw new PendingException();
-//    }
+    @When("^I sent email from Drafts folder$")
+         public void I_sent_email() throws Throwable {
+         draftsMng.openAndSendDraft();
+    }
 
     @Then("^email sent is on Send folder$")
     public void emailSentIsOnSentMailFolder() throws Throwable {
-        sentMailMng = new SentMailManager(driver);
         Assert.assertTrue("Verification Failed: email is not on Sent Mail folder.",
 //                sentMailMng.getSentMailListText().contains(EMAIL_TITLE));
 // have difficulties wih list text element identification, looking at the page source instead
                 driver.getPageSource().contains(EMAIL_TITLE));
     }
 
-//    @Then("^Draft folder is empty$")
-//    public void Draft_folder_is_empty() throws Throwable {
-//        // Express the Regexp above with the code you wish you had
-//        throw new PendingException();
-//    }
+    @Then("^Draft folder is empty$")
+    public void draftFolderIsEmpty() throws Throwable {
+        //Assert.assertTrue("Verification Failed: textTo add", draftsMng.getDraftsListText().contains(EMAIL_TITLE));
+        Assert.assertTrue("Verification Failed: Draft folder is not empty",
+                driver.getPageSource().contains(EMPTY_DRAFTS_MESSAGE));
+    }
 }

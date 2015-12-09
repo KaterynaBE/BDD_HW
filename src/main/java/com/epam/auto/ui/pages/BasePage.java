@@ -30,8 +30,8 @@ public class BasePage {
     @FindBy(linkText = "Sent Mail")
     private WebElement linkSentMail;
 
-    @FindBy(partialLinkText = "Drafts")
-    private WebElement linkDrafts;
+    @FindBy(linkText = "Drafts (1)")
+    private WebElement linkDrafts1;
 
     protected WebDriver driver;
 
@@ -57,7 +57,8 @@ public class BasePage {
     }
 
     public DraftsPage openDraftsFolder() {
-        linkDrafts.click();
+
+        linkDrafts1.click();
         return new DraftsPage(driver);
     }
 }

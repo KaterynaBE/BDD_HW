@@ -10,7 +10,17 @@ import org.openqa.selenium.support.FindBy;
  */
 public class DraftsPage extends BasePage {
 
+    @FindBy(className = "nH")
+    public WebElement itemInDrafts;
+
+//    private WebDriver driver;
+
     public DraftsPage(WebDriver driver) {
         super(driver);
+    }
+
+    public NewMessagePopup openDraft() {
+        itemInDrafts.click();
+        return new NewMessagePopup(driver);
     }
 }
