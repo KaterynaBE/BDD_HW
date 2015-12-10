@@ -102,7 +102,7 @@ public class GmailStepDefs {
 
     @Then("^email sent is on Send folder$")
     public void emailSentIsOnSentMailFolder() throws Throwable {
-        Assert.assertTrue("Verification Failed: email is not on Sent Mail folder.",
+        Assert.assertTrue("Email is not on Sent Mail folder.",
 //                sentMailMng.getSentMailListText().contains(EMAIL_TITLE));
 // have difficulties wih list text element identification, looking at the page source instead
                 customDriver.getPageSource().contains(EMAIL_TITLE));
@@ -111,7 +111,7 @@ public class GmailStepDefs {
     @Then("^Draft folder is empty$")
     public void draftFolderIsEmpty() throws Throwable {
         //OR -> Assert.assertTrue("Verification Failed: textTo add", draftsMng.getDraftsListText().contains(EMAIL_TITLE));
-        Assert.assertTrue("Verification Failed: Draft folder is not empty",
+        Assert.assertTrue("Draft folder is not empty",
                 customDriver.getPageSource().contains(EMPTY_DRAFTS_MESSAGE));
     }
 

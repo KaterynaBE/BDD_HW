@@ -36,22 +36,24 @@ public class NewMessagePopup {
         PageFactory.initElements(driver, this);
     }
 
-    public BasePage sendEmail(Email email) {
+    private void fillEmailFields(Email email) {
         textareaTo.click();
         textareaTo.sendKeys(email.getAddressee());
         textareaSubjectbox.sendKeys(email.getSubject());
         textareaMessageBody.click();
         textareaMessageBody.sendKeys(email.getEmailBody());
+    }
+
+    public BasePage sendEmail(Email email) {
+        // method to fill email fields and send it out
+        this.fillEmailFields(email);
         buttonSend.click();
         return new BasePage(driver);
     }
 
     public BasePage createEmailClosePopup(Email email) {
-        textareaTo.click();
-        textareaTo.sendKeys(email.getAddressee());
-        textareaSubjectbox.sendKeys(email.getSubject());
-        textareaMessageBody.click();
-        textareaMessageBody.sendKeys(email.getEmailBody());
+        // method to fill email fields and close window to save email as draft
+        this.fillEmailFields(email);
         buttonClose.click();
         return new BasePage(driver);
     }
@@ -60,5 +62,4 @@ public class NewMessagePopup {
         buttonSend.click();
         return new BasePage(driver);
     }
-
 }
