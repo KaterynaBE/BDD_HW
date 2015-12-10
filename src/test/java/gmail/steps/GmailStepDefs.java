@@ -1,6 +1,6 @@
 package gmail.steps;
 
-//import com.epam.auto.patterns.decorator.CustomWebDriver;
+import com.epam.auto.patterns.decorator.CustomWebDriver;
 import com.epam.auto.patterns.staticfactorymethod.Email;
 import com.epam.auto.patterns.staticfactorymethod.EmailStaticFactory;
 import com.epam.auto.ui.services.DraftsManager;
@@ -9,6 +9,7 @@ import com.epam.auto.ui.services.SentMailManager;
 import com.epam.auto.ui.services.SignManager;
 import com.epam.auto.utils.StringUtils;
 import cucumber.api.java.Before;
+import cucumber.api.java.After;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -23,9 +24,7 @@ import java.util.concurrent.TimeUnit;
  * Steps defenitions for Gmail tests with BDD approach.
  */
 public class GmailStepDefs {
-
-    // protected CustomWebDriver customDriver;
-    WebDriver driver = new FirefoxDriver();
+    protected static CustomWebDriver customDriver;
 
     private final String USERNAME1 = "testtasktask";
     private final String PASSWORD1 = "testtasktaskpwd";
@@ -40,21 +39,28 @@ public class GmailStepDefs {
     public DraftsManager draftsMng;
 
     @Before
+    public static void setUp() {
+        WebDriver driver = new FirefoxDriver();
+        customDriver = new CustomWebDriver(driver);
+        driver.manage().window().maximize();
+    }
+
+    @Before
     public void initManagers() {
-        emailMng = new EmailManager(driver);
-        signMng = new SignManager(driver);
-        draftsMng = new DraftsManager(driver);
-        sentMailMng = new SentMailManager(driver);
+        emailMng = new EmailManager(customDriver);
+        signMng = new SignManager(customDriver);
+        draftsMng = new DraftsManager(customDriver);
+        sentMailMng = new SentMailManager(customDriver);
     }
 
     @Given("^I (?:open|navigate to) main page$")
     public void iOpenMainPage() throws Throwable {
-        driver.get("http://www.gmail.com");
+        customDriver.get("http://www.gmail.com");
     }
 
     @Given("^I log in as \"([^\"]*)\" with password \"([^\"]*)\"$")
     public void iLogInAsUser(String user1, String pwd1) throws Throwable {
-        driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+        customDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         signMng.signInGmail(USERNAME1, PASSWORD1);
     }
 
@@ -99,13 +105,18 @@ public class GmailStepDefs {
         Assert.assertTrue("Verification Failed: email is not on Sent Mail folder.",
 //                sentMailMng.getSentMailListText().contains(EMAIL_TITLE));
 // have difficulties wih list text element identification, looking at the page source instead
-                driver.getPageSource().contains(EMAIL_TITLE));
+                customDriver.getPageSource().contains(EMAIL_TITLE));
     }
 
     @Then("^Draft folder is empty$")
     public void draftFolderIsEmpty() throws Throwable {
-        //Assert.assertTrue("Verification Failed: textTo add", draftsMng.getDraftsListText().contains(EMAIL_TITLE));
+        //OR -> Assert.assertTrue("Verification Failed: textTo add", draftsMng.getDraftsListText().contains(EMAIL_TITLE));
         Assert.assertTrue("Verification Failed: Draft folder is not empty",
-                driver.getPageSource().contains(EMPTY_DRAFTS_MESSAGE));
+                customDriver.getPageSource().contains(EMPTY_DRAFTS_MESSAGE));
+    }
+
+    @After
+    public static void tearDown(){
+        customDriver.quit();
     }
 }
