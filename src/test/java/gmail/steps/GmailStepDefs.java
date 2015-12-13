@@ -64,16 +64,6 @@ public class GmailStepDefs {
         signMng.signInGmail(USERNAME1, PASSWORD1);
     }
 
-    @Given("^I sent email to \"([^\"]*)\" with \"([^\"]*)\" and \"([^\"]*)\"$")
-    public void iSentEmail(String addressee, String subject, String emailBody) throws Throwable {
-
-        String emailTitle = EMAIL_TITLE + StringUtils.getRandomString(6);
-        Email email = EmailStaticFactory.createDefaultEmail(USERNAME2, emailTitle, MESSAGE
-                + StringUtils.getRandomString(7));
-
-        emailMng.sendEmail(email);
-    }
-
     @Given("^I create email to sent to \"([^\"]*)\" with \"([^\"]*)\" and \"([^\"]*)\"$")
     public void iCreateEmail(String addressee, String subject, String emailBody) throws Throwable {
 
@@ -87,6 +77,16 @@ public class GmailStepDefs {
     @Given("^I go to Drafts folder$")
     public void iGoToDraftFolder() throws Throwable {
         draftsMng.navigateToDraftsFolder();
+    }
+
+    @When("^I sent email to \"([^\"]*)\" with \"([^\"]*)\" and \"([^\"]*)\"$")
+    public void iSentEmail(String addressee, String subject, String emailBody) throws Throwable {
+
+        String emailTitle = EMAIL_TITLE + StringUtils.getRandomString(6);
+        Email email = EmailStaticFactory.createDefaultEmail(USERNAME2, emailTitle, MESSAGE
+                + StringUtils.getRandomString(7));
+
+        emailMng.sendEmail(email);
     }
 
 
