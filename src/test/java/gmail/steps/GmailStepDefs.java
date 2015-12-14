@@ -54,18 +54,18 @@ public class GmailStepDefs {
     }
 
     @Given("^I (?:open|navigate to) main page$")
-    public void iOpenMainPage() throws Throwable {
+    public void openMainPage() throws Throwable {
         customDriver.get("http://www.gmail.com");
     }
 
     @Given("^I log in as \"([^\"]*)\" with password \"([^\"]*)\"$")
-    public void iLogInAsUser(String user1, String pwd1) throws Throwable {
+    public void logIn(String user1, String pwd1) throws Throwable {
         customDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         signMng.signInGmail(USERNAME1, PASSWORD1);
     }
 
     @Given("^I create email to sent to \"([^\"]*)\" with \"([^\"]*)\" and \"([^\"]*)\"$")
-    public void iCreateEmail(String addressee, String subject, String emailBody) throws Throwable {
+    public void createEmail(String addressee, String subject, String emailBody) throws Throwable {
 
         String emailTitle = EMAIL_TITLE + StringUtils.getRandomString(6);
         Email email = EmailStaticFactory.createDefaultEmail(USERNAME2, emailTitle, MESSAGE
@@ -75,12 +75,12 @@ public class GmailStepDefs {
     }
 
     @Given("^I go to Drafts folder$")
-    public void iGoToDraftFolder() throws Throwable {
+    public void navigateToDraftFolder() throws Throwable {
         draftsMng.navigateToDraftsFolder();
     }
 
     @When("^I sent email to \"([^\"]*)\" with \"([^\"]*)\" and \"([^\"]*)\"$")
-    public void iSentEmail(String addressee, String subject, String emailBody) throws Throwable {
+    public void sentEmail(String addressee, String subject, String emailBody) throws Throwable {
 
         String emailTitle = EMAIL_TITLE + StringUtils.getRandomString(6);
         Email email = EmailStaticFactory.createDefaultEmail(USERNAME2, emailTitle, MESSAGE
@@ -89,19 +89,18 @@ public class GmailStepDefs {
         emailMng.sendEmail(email);
     }
 
-
     @When("^I go to Sent Mail folder$")
-    public void iGoToSentMailFolder() throws Throwable {
+    public void navigateToSendFolder() throws Throwable {
         sentMailMng.navigateToSendFolder();
     }
 
     @When("^I sent email from Drafts folder$")
-         public void I_sent_email() throws Throwable {
+         public void sentEmail() throws Throwable {
          draftsMng.openAndSendDraft();
     }
 
     @Then("^email sent is on Send folder$")
-    public void emailSentIsOnSentMailFolder() throws Throwable {
+    public void ensureThatEmailWasSent() throws Throwable {
         Assert.assertTrue("Email is not on Sent Mail folder.",
 //                sentMailMng.getSentMailListText().contains(EMAIL_TITLE));
 // have difficulties wih list text element identification, looking at the page source instead
@@ -109,7 +108,7 @@ public class GmailStepDefs {
     }
 
     @Then("^Draft folder is empty$")
-    public void draftFolderIsEmpty() throws Throwable {
+    public void ensureThatDraftsAreEmpty() throws Throwable {
         //OR -> Assert.assertTrue("Verification Failed: textTo add", draftsMng.getDraftsListText().contains(EMAIL_TITLE));
         Assert.assertTrue("Draft folder is not empty",
                 customDriver.getPageSource().contains(EMPTY_DRAFTS_MESSAGE));
