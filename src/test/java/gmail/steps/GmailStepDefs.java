@@ -26,8 +26,7 @@ import java.util.concurrent.TimeUnit;
 public class GmailStepDefs {
     protected static CustomWebDriver customDriver;
 
-    private final String EMAIL_TITLE = "Email title ";
-    private final String MESSAGE = "Some awesome text ";
+    private final String emailTitle = StringUtils.getRandomString(6);
     private final String EMPTY_DRAFTS_MESSAGE = "You don't have any saved drafts.";
 
     public EmailManager emailMng;
@@ -62,9 +61,7 @@ public class GmailStepDefs {
     }
 
     @Given("^I create email to sent to \"([^\"]*)\" with \"([^\"]*)\" and \"([^\"]*)\"$")
-    public void createEmail(String addressee, String Title, String body) throws Throwable {
-
-        String emailTitle = StringUtils.getRandomString(6);
+    public void createEmail(String addressee, String subject, String body) throws Throwable {
         Email email = EmailStaticFactory.createDefaultEmail(addressee, emailTitle, StringUtils.getRandomString(7));
 
         emailMng.createEmailClosePopup(email);
@@ -77,8 +74,6 @@ public class GmailStepDefs {
 
     @When("^I sent email to \"([^\"]*)\" with \"([^\"]*)\" and \"([^\"]*)\"$")
     public void sentEmail(String addressee, String subject, String emailBody) throws Throwable {
-
-        String emailTitle = StringUtils.getRandomString(6);
         Email email = EmailStaticFactory.createDefaultEmail(addressee, emailTitle, StringUtils.getRandomString(7));
 
         emailMng.sendEmail(email);
@@ -97,9 +92,7 @@ public class GmailStepDefs {
     @Then("^email sent is on Send folder$")
     public void ensureThatEmailWasSent() throws Throwable {
         Assert.assertTrue("Email is not on Sent Mail folder.",
-//                sentMailMng.getSentMailListText().contains(EMAIL_TITLE));
-// have difficulties wih list text element identification, looking at the page source instead
-                customDriver.getPageSource().contains(EMAIL_TITLE));
+                sentMailMng.getSentMailListText().contains(emailTitle));
     }
 
     @Then("^Draft folder is empty$")
