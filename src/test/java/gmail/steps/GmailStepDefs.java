@@ -26,9 +26,6 @@ import java.util.concurrent.TimeUnit;
 public class GmailStepDefs {
     protected static CustomWebDriver customDriver;
 
-    private final String USERNAME1 = "testtasktask";
-    private final String PASSWORD1 = "testtasktaskpwd";
-    private final String USERNAME2 = "testtasktask2@gmail.com";
     private final String EMAIL_TITLE = "Email title ";
     private final String MESSAGE = "Some awesome text ";
     private final String EMPTY_DRAFTS_MESSAGE = "You don't have any saved drafts.";
@@ -59,17 +56,16 @@ public class GmailStepDefs {
     }
 
     @Given("^I log in as \"([^\"]*)\" with password \"([^\"]*)\"$")
-    public void logIn(String user1, String pwd1) throws Throwable {
+    public void logIn(String user, String password) throws Throwable {
         customDriver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
-        signMng.signInGmail(USERNAME1, PASSWORD1);
+        signMng.signInGmail(user, password);
     }
 
     @Given("^I create email to sent to \"([^\"]*)\" with \"([^\"]*)\" and \"([^\"]*)\"$")
-    public void createEmail(String addressee, String subject, String emailBody) throws Throwable {
+    public void createEmail(String addressee, String Title, String body) throws Throwable {
 
-        String emailTitle = EMAIL_TITLE + StringUtils.getRandomString(6);
-        Email email = EmailStaticFactory.createDefaultEmail(USERNAME2, emailTitle, MESSAGE
-                + StringUtils.getRandomString(7));
+        String emailTitle = StringUtils.getRandomString(6);
+        Email email = EmailStaticFactory.createDefaultEmail(addressee, emailTitle, StringUtils.getRandomString(7));
 
         emailMng.createEmailClosePopup(email);
     }
@@ -82,9 +78,8 @@ public class GmailStepDefs {
     @When("^I sent email to \"([^\"]*)\" with \"([^\"]*)\" and \"([^\"]*)\"$")
     public void sentEmail(String addressee, String subject, String emailBody) throws Throwable {
 
-        String emailTitle = EMAIL_TITLE + StringUtils.getRandomString(6);
-        Email email = EmailStaticFactory.createDefaultEmail(USERNAME2, emailTitle, MESSAGE
-                + StringUtils.getRandomString(7));
+        String emailTitle = StringUtils.getRandomString(6);
+        Email email = EmailStaticFactory.createDefaultEmail(addressee, emailTitle, StringUtils.getRandomString(7));
 
         emailMng.sendEmail(email);
     }
