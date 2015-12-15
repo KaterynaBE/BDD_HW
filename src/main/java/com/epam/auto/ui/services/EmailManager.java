@@ -28,9 +28,9 @@ public class EmailManager extends BaseManager {
         NewMessagePopup newMessagePopup = new BasePage(driver).initiateNewEmail();
         newMessagePopup.createEmailClosePopup(email);
     }
-//
-//    public void clickSendMail() {
-//        newMessagePopup = new NewMessagePopup(driver);
-//        newMessagePopup.clickSendButton();
-//    }
+
+    public void clickSendMail() {
+        newMessagePopup = new NewMessagePopup(driver);
+        newMessagePopup.clickSendButton();
+    }
 }

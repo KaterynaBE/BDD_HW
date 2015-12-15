@@ -6,6 +6,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * WebDriver decorator.
@@ -88,5 +89,10 @@ public class CustomWebDriver implements WebDriver {
         if(isAlertPresent()){
             driver.switchTo().alert().accept();
         }
+    }
+
+    public void refreshPage() {
+        this.navigate().refresh();
+        this.acceptAlert();
     }
 }

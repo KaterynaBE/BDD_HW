@@ -27,7 +27,7 @@ public class GmailStepDefs {
     protected static CustomWebDriver customDriver;
 
     private final String emailTitle = StringUtils.getRandomString(6);
-    private final String EMPTY_DRAFTS_MESSAGE = "You don't have any saved drafts.";
+    private final String EMPTY_DRAFTS_MESSAGE = "You don't have any saved drafts";
 
     public EmailManager emailMng;
     public SignManager signMng;
@@ -38,7 +38,7 @@ public class GmailStepDefs {
     public static void setUp() {
         WebDriver driver = new FirefoxDriver();
         customDriver = new CustomWebDriver(driver);
-        driver.manage().window().maximize();
+        customDriver.manage().window().maximize();
     }
 
     @Before
@@ -86,24 +86,27 @@ public class GmailStepDefs {
 
     @When("^I sent email from Drafts folder$")
          public void sentEmail() throws Throwable {
-         draftsMng.openAndSendDraft();
+         draftsMng.openDraftsFolder();
+         emailMng.clickSendMail();
     }
 
     @Then("^email sent is on Send folder$")
     public void ensureThatEmailWasSent() throws Throwable {
-        Assert.assertTrue("Email is not on Sent Mail folder.",
-                sentMailMng.getSentMailListText().contains(emailTitle));
+        Assert.assertTrue("Email with specified title was not found on Sent Mail folder.",
+                customDriver.getPageSource().contains(emailTitle));
     }
 
     @Then("^Draft folder is empty$")
     public void ensureThatDraftsAreEmpty() throws Throwable {
-        //OR -> Assert.assertTrue("Verification Failed: textTo add", draftsMng.getDraftsListText().contains(EMAIL_TITLE));
-        Assert.assertTrue("Draft folder is not empty",
+        customDriver.refreshPage();
+        Assert.assertFalse("Draft folder is not empty",
+                draftsMng.getDraftsListText().contains(emailTitle));
+        Assert.assertTrue("Draft folder is not empty no tesx",
                 customDriver.getPageSource().contains(EMPTY_DRAFTS_MESSAGE));
     }
 
-    @After
-    public static void tearDown(){
-        customDriver.quit();
-    }
+//    @After
+//    public static void tearDown(){
+//        customDriver.quit();
+//    }
 }

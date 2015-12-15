@@ -57,7 +57,6 @@ public class BasePage {
     }
 
     public DraftsPage openDraftsFolder() {
-
         linkDrafts1.click();
         return new DraftsPage(driver);
     }

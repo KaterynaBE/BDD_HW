@@ -9,7 +9,7 @@ import org.openqa.selenium.support.FindBy;
  */
 public class SentMailPage extends BasePage {
 
-    @FindBy(className="AO")
+    @FindBy(className="nH")
     public WebElement sentMailList;
 
     public SentMailPage(WebDriver driver) {

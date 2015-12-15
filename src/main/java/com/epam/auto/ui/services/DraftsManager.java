@@ -12,7 +12,6 @@ public class DraftsManager extends BaseManager {
 
     private BasePage basePage;
     private DraftsPage draftsPage;
-    private NewMessagePopup newMessagePopup;
     public DraftsManager(WebDriver driver) {
         super(driver);
     }
@@ -22,10 +21,12 @@ public class DraftsManager extends BaseManager {
         basePage.openDraftsFolder();
     }
 
-    public void openAndSendDraft() {
+    public void openDraftsFolder() {
         draftsPage = new DraftsPage(driver);
         draftsPage.openDraft();
-        newMessagePopup = new NewMessagePopup(driver);
-        newMessagePopup.clickSendButton();
+    }
+
+    public String getDraftsListText() {
+        return draftsPage.itemInDrafts.getText();
     }
 }
